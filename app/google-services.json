@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "993168127435",
+    "firebase_url": "https://messageapp-f8891.firebaseio.com",
+    "project_id": "messageapp-f8891",
+    "storage_bucket": "messageapp-f8891.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993168127435:android:af3e7f482400888f",
+        "android_client_info": {
+          "package_name": "com.example.messageapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993168127435-k1arf0jlh3gbufg27ul29m27p4ulsp6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZehENh103PLihHQ5BE6M4eqyataIqaa8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

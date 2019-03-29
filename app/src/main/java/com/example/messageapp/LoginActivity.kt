@@ -13,8 +13,12 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        backToRegistrationTextView.setOnClickListener {
+        loginButton.setOnClickListener {
 
+        }
+
+        backToRegistrationTextView.setOnClickListener {
+            finish()
         }
     }
 

@@ -16,8 +16,7 @@ class MainActivity : AppCompatActivity() {
             val email = emailInput.text.toString()
             val password = passwordInput.text.toString()
 
-            Log.d("MainActivity", "Email to: " + email)
-            Log.d("MainActivity", "Haslo to: $password")
+
         }
 
         hasAccountTextView.setOnClickListener {
