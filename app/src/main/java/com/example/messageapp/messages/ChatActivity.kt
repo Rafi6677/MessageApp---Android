@@ -18,19 +18,34 @@ class ChatActivity : AppCompatActivity() {
 
         val adapter = GroupAdapter<ViewHolder>()
 
-        adapter.add(ChatItem())
+        adapter.add(ChatFromItem())
+        adapter.add(ChatToItem())
+        adapter.add(ChatFromItem())
+        adapter.add(ChatToItem())
+        adapter.add(ChatFromItem())
+        adapter.add(ChatToItem())
 
         recyclerViewChat.adapter = adapter
     }
 }
 
 
-class ChatItem: Item<ViewHolder>() {
+class ChatFromItem: Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
 
     }
 
     override fun getLayout(): Int {
         return R.layout.chat_from_row
+    }
+}
+
+class ChatToItem: Item<ViewHolder>() {
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.chat_to_row
     }
 }

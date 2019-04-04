@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@android:color/holo_orange_light"
-            android:id="@+id/recyclerViewChat" app:layout_constraintHorizontal_bias="0.0"
+            android:id="@+id/recyclerViewChat"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/editTextChat"/>
     <EditText
             android:layout_width="0dp"
