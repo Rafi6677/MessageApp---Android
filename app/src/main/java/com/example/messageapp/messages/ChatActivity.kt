@@ -3,6 +3,7 @@ package com.example.messageapp.messages
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.messageapp.R
+import com.example.messageapp.models.User
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -14,7 +15,9 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        supportActionBar?.title = "Chat"
+        val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
+
+        supportActionBar?.title = user.username
 
         val adapter = GroupAdapter<ViewHolder>()
 
