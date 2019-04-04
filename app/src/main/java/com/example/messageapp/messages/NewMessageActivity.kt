@@ -1,8 +1,11 @@
-package com.example.messageapp
+package com.example.messageapp.messages
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import com.example.messageapp.R
+import com.example.messageapp.models.User
+import com.example.messageapp.models.UserItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -39,6 +42,12 @@ class NewMessageActivity : AppCompatActivity() {
                     }
                 }
 
+                adapter.setOnItemClickListener { item, view ->
+                    val intent = Intent(view.context, ChatActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
                 recyclerViewNewMessage.adapter = adapter
             }
 
@@ -48,23 +57,3 @@ class NewMessageActivity : AppCompatActivity() {
         })
     }
 }
-
-class UserItem(val user: User): Item<ViewHolder>() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.usernameTextViewNewMessage.text = user.username
-
-        Picasso.get().load(user.profileImageUrl).into(viewHolder.itemView.imageNewMessage)
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.user_row_new_message
-    }
-}
-
-/*
-
-class CustomAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-}
-
-*/
