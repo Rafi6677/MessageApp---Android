@@ -11,19 +11,25 @@
             android:layout_height="wrap_content"
             android:maxWidth="240dp"
             android:id="@+id/textViewFrom"
-            app:layout_constraintStart_toEndOf="@+id/imageTo"
+            app:layout_constraintStart_toEndOf="@+id/imageFrom"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             android:padding="16dp"
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:background="@drawable/rounded_text_input"
-            app:layout_constraintTop_toTopOf="@+id/imageTo" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="8dp"/>
-    <ImageView
+            app:layout_constraintTop_toTopOf="@+id/imageFrom" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintVertical_bias="0.0"/>
+    <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
-            android:layout_height="50dp" app:srcCompat="@android:drawable/star_big_on"
-            android:id="@+id/imageTo" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"/>
+            android:layout_height="50dp"
+            app:srcCompat="@android:drawable/star_big_on"
+            android:id="@+id/imageFrom"
+            android:layout_marginTop="8dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"/>
 </android.support.constraint.ConstraintLayout>

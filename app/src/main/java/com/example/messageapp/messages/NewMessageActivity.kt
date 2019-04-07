@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.messageapp.R
 import com.example.messageapp.models.User
-import com.example.messageapp.models.UserItem
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -62,5 +61,18 @@ class NewMessageActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    class UserItem(val user: User): Item<ViewHolder>() {
+
+        override fun bind(viewHolder: ViewHolder, position: Int) {
+            viewHolder.itemView.usernameTextViewNewMessage.text = user.username
+
+            Picasso.get().load(user.profileImageUrl).into(viewHolder.itemView.imageNewMessage)
+        }
+
+        override fun getLayout(): Int {
+            return R.layout.user_row_new_message
+        }
     }
 }

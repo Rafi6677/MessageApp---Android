@@ -8,6 +8,8 @@ import android.view.MenuItem
 import com.example.messageapp.R
 import com.example.messageapp.registerlogin.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_latest_messages.*
 
 class LatestMessagesActivity : AppCompatActivity() {
 

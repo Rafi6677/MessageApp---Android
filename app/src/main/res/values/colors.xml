@@ -3,4 +3,6 @@
     <color name="colorPrimary">@android:color/holo_orange_dark</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="MessageTo">#FF3D00</color>
+    <color name="MessageFrom">#963B00</color>
 </resources>

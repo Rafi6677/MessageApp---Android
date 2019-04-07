@@ -12,16 +12,3 @@ import kotlinx.android.synthetic.main.user_row_new_message.view.*
 class User(val uid: String, val username: String, val profileImageUrl: String) : Parcelable {
     constructor() : this("", "", "")
 }
-
-class UserItem(val user: User): Item<ViewHolder>() {
-
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.usernameTextViewNewMessage.text = user.username
-
-        Picasso.get().load(user.profileImageUrl).into(viewHolder.itemView.imageNewMessage)
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.user_row_new_message
-    }
-}
