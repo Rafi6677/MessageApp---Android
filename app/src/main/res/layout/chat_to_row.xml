@@ -18,10 +18,17 @@
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/imageTo"
             android:layout_marginRight="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
-    <ImageView
+
+    <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
-            android:layout_height="50dp" app:srcCompat="@android:drawable/btn_star_big_on"
-            android:id="@+id/imageTo" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp" android:layout_marginTop="8dp"
+            android:layout_height="50dp"
+            app:srcCompat="@android:drawable/btn_star_big_on"
+            android:id="@+id/imageTo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@android:color/white"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

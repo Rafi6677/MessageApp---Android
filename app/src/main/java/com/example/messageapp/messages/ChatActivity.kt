@@ -49,8 +49,8 @@ class ChatActivity : AppCompatActivity() {
 
                 if(chatMessage != null) {
                     if(chatMessage.fromId == FirebaseAuth.getInstance().uid) {
-
-                        adapter.add(ChatToItem(chatMessage.text))
+                        val currentUser = LatestMessagesActivity.currentUser
+                        adapter.add(ChatToItem(chatMessage.text, currentUser!!))
                     }
                     else {
                         adapter.add(ChatFromItem(chatMessage.text, userTo!!))
@@ -112,9 +112,13 @@ class ChatFromItem(val text: String, val user: User): Item<ViewHolder>() {
     }
 }
 
-class ChatToItem(val text: String): Item<ViewHolder>() {
+class ChatToItem(val text: String, val user: User): Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textViewTo.text = text
+
+        val uri = user.profileImageUrl
+        val image = viewHolder.itemView.imageTo
+        Picasso.get().load(uri).into(image)
     }
 
     override fun getLayout(): Int {
