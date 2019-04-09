@@ -56,9 +56,6 @@ class RegisterActivity : AppCompatActivity() {
             selectedPhotoImageViewRegister.setImageBitmap(bitmap)
 
             selectPhotoButton.alpha = 0f
-
-            //val bitmapDrawable = BitmapDrawable(bitmap)
-            //selectPhotoButton.setBackgroundDrawable(bitmapDrawable)
         }
     }
 
@@ -111,7 +108,7 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             .addOnFailureListener {
-
+                println("nie udalo sie")
             }
     }
 }

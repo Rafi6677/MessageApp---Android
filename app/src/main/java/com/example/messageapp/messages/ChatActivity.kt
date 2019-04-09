@@ -41,7 +41,10 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun listenForMessages() {
-        val ref = FirebaseDatabase.getInstance().getReference("/messages")
+        val fromId = FirebaseAuth.getInstance().uid
+        val toId = userTo?.uid
+
+        val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
 
         ref.addChildEventListener(object: ChildEventListener {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
@@ -58,42 +61,29 @@ class ChatActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-
-            }
-
-            override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-
-            }
-
-            override fun onChildRemoved(p0: DataSnapshot) {
-
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) { }
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) { }
+            override fun onChildRemoved(p0: DataSnapshot) { }
+            override fun onCancelled(p0: DatabaseError) { }
         })
     }
 
     private fun sendMessage() {
         val text = editTextChat.text.toString()
-        val user = intent.getParcelableExtra<User>(NewMessageActivity.USER_KEY)
 
         val fromId = FirebaseAuth.getInstance().uid
-        val toId = user.uid
+        val toId = userTo?.uid
 
         if(fromId == null) return
 
-        val ref = FirebaseDatabase.getInstance().getReference("/messages").push()
+        //val ref = FirebaseDatabase.getInstance().getReference("/messages").push()
+        val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
+        val toRef = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
 
-        val chatMessage = ChatMessage(ref.key!!, text, fromId, toId, System.currentTimeMillis() / 1000)
+        val chatMessage = ChatMessage(ref.key!!, text, fromId, toId!!, System.currentTimeMillis() / 1000)
 
         ref.setValue(chatMessage)
-            .addOnSuccessListener {
-                println("Message saved: ${ref.key}")
-            }
+        toRef.setValue(chatMessage)
     }
 }
 
