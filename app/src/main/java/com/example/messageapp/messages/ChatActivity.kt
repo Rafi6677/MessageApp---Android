@@ -66,6 +66,8 @@ class ChatActivity : AppCompatActivity() {
             override fun onChildRemoved(p0: DataSnapshot) { }
             override fun onCancelled(p0: DatabaseError) { }
         })
+
+        recyclerViewChat.scrollToPosition(adapter.itemCount - 1)
     }
 
     private fun sendMessage() {
@@ -83,6 +85,11 @@ class ChatActivity : AppCompatActivity() {
         val chatMessage = ChatMessage(ref.key!!, text, fromId, toId!!, System.currentTimeMillis() / 1000)
 
         ref.setValue(chatMessage)
+            .addOnSuccessListener {
+                editTextChat.text.clear()
+                recyclerViewChat.scrollToPosition(adapter.itemCount - 1)
+            }
+
         toRef.setValue(chatMessage)
     }
 }
