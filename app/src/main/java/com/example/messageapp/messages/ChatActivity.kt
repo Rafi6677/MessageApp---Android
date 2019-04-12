@@ -34,6 +34,7 @@ class ChatActivity : AppCompatActivity() {
         supportActionBar?.title = userTo?.username
 
         listenForMessages()
+        recyclerViewChat.scrollToPosition(adapter.itemCount - 1)
 
         sendButton.setOnClickListener {
             sendMessage()
@@ -66,8 +67,6 @@ class ChatActivity : AppCompatActivity() {
             override fun onChildRemoved(p0: DataSnapshot) { }
             override fun onCancelled(p0: DatabaseError) { }
         })
-
-        recyclerViewChat.scrollToPosition(adapter.itemCount - 1)
     }
 
     private fun sendMessage() {

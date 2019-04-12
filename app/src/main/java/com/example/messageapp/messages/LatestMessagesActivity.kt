@@ -13,6 +13,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.Item
+import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_latest_messages.*
 
 class LatestMessagesActivity : AppCompatActivity() {
@@ -28,6 +31,8 @@ class LatestMessagesActivity : AppCompatActivity() {
         fetchCurrentUser()
 
         verifyUserIsLoggedIn()
+
+        setupRows()
     }
 
     private fun fetchCurrentUser() {
@@ -37,7 +42,6 @@ class LatestMessagesActivity : AppCompatActivity() {
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 currentUser = p0.getValue(User::class.java)
-                userLoggedTextInfo.text = "Zalogowano: ${currentUser?.username}"
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -76,5 +80,36 @@ class LatestMessagesActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setupRows() {
+        val adapter = GroupAdapter<ViewHolder>()
+
+        adapter.add(LatestMessageProfileRow())
+        adapter.add(LatestMessageRow())
+        adapter.add(LatestMessageRow())
+        adapter.add(LatestMessageRow())
+
+        recyclerViewLatestMessages.adapter = adapter
+    }
+}
+
+class LatestMessageProfileRow: Item<ViewHolder>() {
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.latest_messages_profile_row
+    }
+}
+
+class LatestMessageRow: Item<ViewHolder>(){
+    override fun bind(viewHolder: ViewHolder, position: Int) {
+
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.latest_messages_row
     }
 }
