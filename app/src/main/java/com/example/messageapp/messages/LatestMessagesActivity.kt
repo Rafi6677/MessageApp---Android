@@ -6,22 +6,23 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.example.messageapp.R
+import com.example.messageapp.models.ChatMessage
 import com.example.messageapp.models.User
 import com.example.messageapp.registerlogin.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_latest_messages.*
 import kotlinx.android.synthetic.main.latest_messages_profile_row.view.*
-import kotlinx.android.synthetic.main.user_row_new_message.view.*
+import kotlinx.android.synthetic.main.latest_messages_row.view.*
 
 class LatestMessagesActivity : AppCompatActivity() {
+
+    val adapter = GroupAdapter<ViewHolder>()
+    val latestMessagesMap = HashMap<String, ChatMessage>()
 
     companion object {
         var currentUser: User? = null
@@ -31,11 +32,13 @@ class LatestMessagesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_latest_messages)
 
+        recyclerViewLatestMessages.adapter = adapter
+
         verifyUserIsLoggedIn()
 
         fetchCurrentUser()
 
-        setupRows()
+        listenForLatestMessages()
     }
 
     private fun verifyUserIsLoggedIn() {
@@ -55,6 +58,7 @@ class LatestMessagesActivity : AppCompatActivity() {
         ref.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 currentUser = p0.getValue(User::class.java)
+                adapter.add(LatestMessageProfileRow())
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -86,15 +90,36 @@ class LatestMessagesActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setupRows() {
-        val adapter = GroupAdapter<ViewHolder>()
+    private fun listenForLatestMessages() {
+        val fromId = FirebaseAuth.getInstance().uid
+        val ref = FirebaseDatabase.getInstance().getReference("/latest-messages/$fromId")
 
-        adapter.add(LatestMessageProfileRow())
-        adapter.add(LatestMessageRow())
-        adapter.add(LatestMessageRow())
-        adapter.add(LatestMessageRow())
+        ref.addChildEventListener(object: ChildEventListener{
+            override fun onChildAdded(p0: DataSnapshot, p1: String?) {
+                val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
 
-        recyclerViewLatestMessages.adapter = adapter
+                latestMessagesMap[p0.key!!] = chatMessage
+                refreshRecyclerViewMessages()
+            }
+
+            override fun onChildMoved(p0: DataSnapshot, p1: String?) {
+                val chatMessage = p0.getValue(ChatMessage::class.java) ?: return
+
+                latestMessagesMap[p0.key!!] = chatMessage
+                refreshRecyclerViewMessages()
+            }
+
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onChildChanged(p0: DataSnapshot, p1: String?) {}
+            override fun onChildRemoved(p0: DataSnapshot) {}
+        })
+    }
+
+    private fun refreshRecyclerViewMessages() {
+        adapter.clear()
+        latestMessagesMap.values.forEach {
+            adapter.add(LatestMessageRow(it))
+        }
     }
 
 
@@ -111,9 +136,10 @@ class LatestMessagesActivity : AppCompatActivity() {
         }
     }
 
-    class LatestMessageRow: Item<ViewHolder>(){
+    class LatestMessageRow(val chatMessage: ChatMessage): Item<ViewHolder>(){
         override fun bind(viewHolder: ViewHolder, position: Int) {
-
+            viewHolder.itemView.usernameTextView.text
+            viewHolder.itemView.messageTextView.text = chatMessage.text
         }
 
         override fun getLayout(): Int {
