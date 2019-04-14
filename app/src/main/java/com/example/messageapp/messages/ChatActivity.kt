@@ -77,8 +77,8 @@ class ChatActivity : AppCompatActivity() {
 
         if(fromId == null) return
 
-        //val ref = FirebaseDatabase.getInstance().getReference("/messages").push()
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId").push()
+
         val toRef = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
 
         val chatMessage = ChatMessage(ref.key!!, text, fromId, toId!!, System.currentTimeMillis() / 1000)
@@ -90,6 +90,12 @@ class ChatActivity : AppCompatActivity() {
             }
 
         toRef.setValue(chatMessage)
+
+
+        val latestMessageRef = FirebaseDatabase.getInstance()
+            .getReference("/latest-messages/$fromId/$toId")
+
+        latestMessageRef.setValue(chatMessage)
     }
 }
 
