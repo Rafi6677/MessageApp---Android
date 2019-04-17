@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.example.messageapp.R
 import com.example.messageapp.models.ChatMessage
 import com.example.messageapp.models.User
+import com.example.messageapp.views.ChatFromItem
+import com.example.messageapp.views.ChatToItem
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -96,34 +98,5 @@ class ChatActivity : AppCompatActivity() {
             .getReference("/latest-messages/$fromId/$toId")
 
         latestMessageRef.setValue(chatMessage)
-    }
-}
-
-
-class ChatFromItem(val text: String, val user: User): Item<ViewHolder>() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textViewFrom.text = text
-
-        val uri = user.profileImageUrl
-        val image = viewHolder.itemView.imageFrom
-        Picasso.get().load(uri).into(image)
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.chat_from_row
-    }
-}
-
-class ChatToItem(val text: String, val user: User): Item<ViewHolder>() {
-    override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textViewTo.text = text
-
-        val uri = user.profileImageUrl
-        val image = viewHolder.itemView.imageTo
-        Picasso.get().load(uri).into(image)
-    }
-
-    override fun getLayout(): Int {
-        return R.layout.chat_to_row
     }
 }
