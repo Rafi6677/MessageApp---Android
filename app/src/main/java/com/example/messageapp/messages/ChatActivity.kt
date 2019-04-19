@@ -62,6 +62,8 @@ class ChatActivity : AppCompatActivity() {
                         adapter.add(ChatFromItem(chatMessage.text, userTo!!))
                     }
                 }
+
+                recyclerViewChat.scrollToPosition(adapter.itemCount - 1)
             }
 
             override fun onChildMoved(p0: DataSnapshot, p1: String?) { }
@@ -94,9 +96,13 @@ class ChatActivity : AppCompatActivity() {
         toRef.setValue(chatMessage)
 
 
-        val latestMessageRef = FirebaseDatabase.getInstance()
+        val latestMessageFromRef = FirebaseDatabase.getInstance()
             .getReference("/latest-messages/$fromId/$toId")
 
-        latestMessageRef.setValue(chatMessage)
+        val latestMessageToRef = FirebaseDatabase.getInstance()
+            .getReference("/latest-messages/$toId/$fromId")
+
+        latestMessageFromRef.setValue(chatMessage)
+        latestMessageToRef.setValue(chatMessage)
     }
 }

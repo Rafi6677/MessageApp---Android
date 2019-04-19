@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.example.messageapp.R
 import com.example.messageapp.models.User
 import com.example.messageapp.views.UserItem
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -41,7 +42,7 @@ class NewMessageActivity : AppCompatActivity() {
 
                 p0.children.forEach {
                     val user = it.getValue(User::class.java)
-                    if (user != null) {
+                    if (user != null && user.uid != FirebaseAuth.getInstance().uid) {
                         adapter.add(UserItem(user))
                     }
                 }
